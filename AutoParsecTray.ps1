@@ -10,6 +10,7 @@ $script:SettingsDir = Join-Path $env:APPDATA "AutoParsec"
 $script:SettingsPath = Join-Path $script:SettingsDir "settings.json"
 $script:DefaultUserScriptPath = Join-Path $script:SettingsDir "auto-parsec.user.ps1"
 $script:TrayScriptPath = $MyInvocation.MyCommand.Path
+$script:LauncherScriptPath = Join-Path $PSScriptRoot "AutoParsecTray.vbs"
 $script:MonitorProcess = $null
 $script:MonitorShouldBeRunning = $false
 $script:Settings = $null
@@ -93,6 +94,11 @@ function Get-PowerShellExe {
 }
 
 function Get-StartupCommand {
+    if (Test-Path $script:LauncherScriptPath) {
+        $wscriptExe = Join-Path $env:SystemRoot "System32\wscript.exe"
+        return ('"{0}" "{1}"' -f $wscriptExe, $script:LauncherScriptPath)
+    }
+
     $powershellExe = Get-PowerShellExe $script:Settings
     return ('"{0}" -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -STA -File "{1}"' -f $powershellExe, $script:TrayScriptPath)
 }

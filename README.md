@@ -10,8 +10,10 @@ It can be used to start a game, launch a program, automatically accept connectio
 ### Usage:
 
 1. Clone the repo or install it with the installer.
-2. Run `AutoParsecTray.ps1` with PowerShell 5.1 or newer.
+2. Run `AutoParsecTray.vbs`, or use the Start Menu shortcut created by the installer.
 3. Use the tray icon to start/stop monitoring, open `settings.json`, edit the automation script, reload settings, or toggle Windows startup.
+
+`AutoParsecTray.vbs` launches the PowerShell tray app without leaving a terminal window open. `AutoParsecTray.ps1` is the app body and is still useful for debugging.
 
 On first launch, Auto Parsec creates:
 
