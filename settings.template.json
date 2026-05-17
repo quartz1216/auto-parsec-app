@@ -1,0 +1,8 @@
+{
+  "StartWithWindows": false,
+  "AutoStartMonitor": true,
+  "ScriptPath": "%APPDATA%\\AutoParsec\\auto-parsec.user.ps1",
+  "LogFile": "",
+  "PowerShellExe": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "PowerShellArguments": "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden"
+}

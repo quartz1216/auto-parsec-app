@@ -1,3 +1,8 @@
+param(
+    [Parameter(Mandatory = $false)]
+    [string]$LogFile = ""
+)
+
 #-------------------------------------------------------------------------------
 #
 # These 3 functions are called when a user connects, disconnects, or attempts to
@@ -46,11 +51,18 @@ $DebugPreference = "SilentlyContinue"
 $ErrorActionPreference = "Continue"
 
 
-# Look for the log file in the two possible locations
-$LogFile = if (Test-Path "$env:APPDATA\Parsec\log.txt") {
-    "$env:APPDATA\Parsec\log.txt"
-} else {
-    "$env:ProgramData\parsec\log.txt"
+# Look for the log file in the two possible locations unless one was provided
+if ([string]::IsNullOrWhiteSpace($LogFile)) {
+    $LogFile = if (Test-Path "$env:APPDATA\Parsec\log.txt") {
+        "$env:APPDATA\Parsec\log.txt"
+    } else {
+        "$env:ProgramData\parsec\log.txt"
+    }
+}
+
+while (-not (Test-Path $LogFile)) {
+    Write-Warning "Parsec log file not found at '$LogFile'. Retrying..."
+    Start-Sleep -Seconds 5
 }
 
 
